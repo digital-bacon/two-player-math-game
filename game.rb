@@ -14,6 +14,11 @@ class Game
 
     puts ("The names have been locked!")
     puts ("#{player_1.name} vs #{player_2.name}")
+
+    question = Question.new
+    puts ("Player 1: #{question.ask}")
+    player_answer = gets.chomp.to_i
+    puts question.correct?(player_answer)
   end
 
   def to_s

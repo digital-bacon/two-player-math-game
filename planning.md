@@ -89,6 +89,6 @@ in the answer variable. It also contains a method to check if an answer is
 correct. The method named to_s is used for troubleshooting and outputs a string
 to identify the class.
 
-- Properties: number_one, number_two, answer
+- Properties: number_1, number_2, answer
 - Initialized with:
 - Public methods: new_question, correct_answer?, to_s
