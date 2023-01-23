@@ -18,7 +18,15 @@ class Game
     question = Question.new
     puts ("Player 1: #{question.ask}")
     player_answer = gets.chomp.to_i
-    puts question.correct?(player_answer)
+    
+    correct = question.correct?(player_answer)
+    if !correct
+      player_1.lose_a_life
+      puts ("Seriously? No!")
+      puts ("You now have #{player_1.life} life left")
+    else
+      puts ("YES! You are correct.")
+    end
   end
 
   def to_s
