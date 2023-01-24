@@ -1,6 +1,6 @@
 class Game
 
-  INITIAL_PLAYER_LIFE = 3
+  INITIAL_PLAYER_LIFE = 1
 
   def initialize
     puts ("TwO-O-Player Math Game")
@@ -30,8 +30,21 @@ class Game
       puts ("YES! You are correct.")
     end
 
-    puts ("P1: #{player_1.say_score} vs P2: #{player_2.say_score}")
-    puts ("----- NEW TURN -----")
+    continue_playing = player_1.alive? && player_2.alive?
+    if continue_playing
+      puts ("P1: #{player_1.say_score} vs P2: #{player_2.say_score}")
+      puts ("----- NEW TURN -----")
+    else
+      if player_1.life === player_2.life
+        puts ("Gameplay ends with a score of P1: #{player_1.say_score} vs P2: #{player_2.say_score}")
+      elsif player_1.life > player_2.life
+        puts ("Player 1 wins with a score of #{player_1.say_score}")
+      else
+        puts ("Player 2 wins with a score of #{player_2.say_score}")
+      end
+      puts ("----- GAME OVER -----")
+      puts ("Good bye!")
+    end
 
   end
 
