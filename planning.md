@@ -2,7 +2,7 @@
 
 ## Description
 
-A 2-Player math game where players take turns to answer simple math addition
+A 2+ Player math game where players take turns to answer simple math addition
 problems. A new math question is generated for each turn by picking two numbers
 between 1 and 20. The player whose turn it is is prompted the question and must
 answer correctly or lose a life.
@@ -11,11 +11,11 @@ answer correctly or lose a life.
 
 ## Details
 
-Both players start with 3 lives. They lose a life if they mis-answer a
+Players start with 3 lives. They lose a life if they mis-answer a
 question. At the end of every turn, the game should output the new scores for
-both players, so players know where they stand.
+players, so players know where they stand.
 
-The game doesn’t end until one of the players loses all their lives. At this
+The game doesn’t end until one player is left standing. At this
 point, the game should announce who won and what the other player’s score is.
 
 ---
@@ -70,7 +70,7 @@ as required. The method named to_s is used for troubleshooting and outputs a
 string to identify the class.
 
 - Properties: player_1, player_2, current_player
-- Initialized with:
+- Initialized with: none
 - Methods: new_round, say_correct, say_incorrect, say_game_over, to_s
 
 **Player**
@@ -78,17 +78,22 @@ string to identify the class.
 Stores information on a player, and handles player life. The method named to_s
 is used for troubleshooting and outputs a string to identify the class.
 
-- Properties: name, life
-- Initialized with: name
-- Methods: set_name, current_life, lose_a_life, alive?, to_s
+- Properties: :players, :losers, :question, :answer
+- Initialized with: none
+- Methods:
+  - continue_play?
+  - correct?
+  - find_winner
+  - new_round
+  - new_question
+  - remove_losers
+  - say_score
+  - say_winner
+  - score(player)
+  - to_s
 
 **Question**
 
-Generates a random math question with method new_question and stores the answer
-in the answer variable. It also contains a method to check if an answer is
-correct. The method named to_s is used for troubleshooting and outputs a string
-to identify the class.
-
-- Properties: number_1, number_2, answer
-- Initialized with:
-- Public methods: new_question, correct_answer?, to_s
+- Properties: :ask, :number_1, :number_2, :answer
+- Initialized with: none
+- Public methods: ask, correct?, to_s
