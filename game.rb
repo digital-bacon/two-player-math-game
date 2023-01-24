@@ -3,7 +3,7 @@ class Game
 
   GAME_NAME = "TwO-O-Player Math Game"
   WELCOME_MESSAGE = "Challenge a friend to a math battle for the ages!\n\n"
-  INITIAL_PLAYER_LIFE = 1
+  INITIAL_PLAYER_LIFE = 3
 
   def initialize
     puts ("~~~~~~~~~~~~~~~~~~~~~~")
@@ -103,6 +103,10 @@ class Game
     return @players.length >= 2
   end
 
+  def score(player)
+    "#{player.life}/#{INITIAL_PLAYER_LIFE}"
+  end
+
   def remove_losers
     @players.each_with_index do |player, index|
       if !player.alive?
@@ -117,7 +121,7 @@ class Game
     message = ""
     total_players = @players.length
     @players.each_with_index do |player, current|
-      message += "#{player.name}: #{player.say_score}"
+      message += "#{player.name}: #{score(player)}"
       if (current + 1) < total_players
         message += " vs "
       end
@@ -140,7 +144,7 @@ class Game
   def say_winner
     winner = find_winner
     if winner
-      puts ("#{winner.name} wins with a score of #{winner.say_score}")
+      puts ("#{winner.name} wins with a score of #{score(winner)}")
     else
       puts ("There was no winner")
     end

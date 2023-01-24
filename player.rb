@@ -6,10 +6,6 @@ class Player
     @initial_life = initial_life
     @life = initial_life
   end
-  
-  def say_score
-    "#{@life}/#{@initial_life}"
-  end
 
   def lose_a_life
     @life -= 1
