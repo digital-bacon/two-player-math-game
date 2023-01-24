@@ -1,27 +1,37 @@
 class Game
-  attr_reader = :players, :question, :answer
+  attr_reader = :players, :losers, :question, :answer
 
+  GAME_NAME = "TwO-O-Player Math Game"
+  WELCOME_MESSAGE = "Challenge a friend to a math battle for the ages!\n\n"
   INITIAL_PLAYER_LIFE = 1
 
   def initialize
-    @players = []
-    puts ("TwO-O-Player Math Game")
-    puts ("Challenge a friend to a math battle for the ages!")
-
-    puts ("Enter P1 name:")
-    player_1_name = gets.chomp
+    puts ("~~~~~~~~~~~~~~~~~~~~~~")
+    puts (GAME_NAME)
+    puts ("~~~~~~~~~~~~~~~~~~~~~~")
+    puts (WELCOME_MESSAGE)
     
-    puts ("Enter P2 name:")
-    player_2_name = gets.chomp
+    puts ("How many are playing?")
+    total_players = gets.chomp.to_i
+    if total_players < 2
+      total_players = 2
+    end
+    
+    # Generate the players
+    @players = []
+    @losers = []
 
-    player_1 = Player.new(player_1_name, INITIAL_PLAYER_LIFE)
-    player_2 = Player.new(player_2_name, INITIAL_PLAYER_LIFE)
-    @players << player_1 
-    @players << player_2
+    for count in 1..total_players
+        puts ("Enter P#{count} name:")
+        name = gets.chomp
+        player = Player.new(name, INITIAL_PLAYER_LIFE)
+        @players << player
+    end
 
-    puts ("The names have been locked!")
+    puts ("Player names have been locked!")
+
+    # Announce the players
     message = ""
-    total_players = @players.length
     @players.each_with_index do |player, current|
       message += "#{player.name}"
       if (current + 1) < total_players
@@ -30,13 +40,19 @@ class Game
     end
     puts message
     
-    play_round = true
+    # Shuffle players and initialize game loop
+    @players.shuffle!
+    play_game = true
+    remaining_players = total_players
     player_number = 0
-    while play_round
+    puts ("----- GAME START -----")
+    while play_game
       @current_player = @players[player_number]
-      play_round = self.new_round
+      self.new_round
+      remaining_players = @players.length
+      play_game = remaining_players >= 2 ? true : false
       player_number += 1
-      if (total_players === player_number)
+      if (remaining_players <= player_number)
         player_number = 0
       end
     end
@@ -55,7 +71,9 @@ class Game
       puts ("Seriously? No!")
     end
     
-    if continue?
+    remove_losers
+
+    if continue_play?
       say_score
       puts ("----- NEW TURN -----")
       return true
@@ -81,13 +99,18 @@ class Game
     @question.correct?(@answer)
   end
 
-  def continue?
-    @players.each do |player|
+  def continue_play?
+    return @players.length >= 2
+  end
+
+  def remove_losers
+    @players.each_with_index do |player, index|
       if !player.alive?
-        return false
+        @losers << player
+        @players.delete_at(index)
+        puts ("It's game over for #{player.name}. So sad!")
       end
     end
-    return true
   end
 
   def say_score
