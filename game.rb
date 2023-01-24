@@ -13,7 +13,7 @@ class Game
     say_introduction
     ask_total_players
     ask_player_names
-    puts ("Player names have been locked!")
+    puts "Player names have been locked!"
     say_roster
     play
     say_winner
@@ -22,8 +22,8 @@ class Game
 
   private
 
-  def ask_question(name)
-    puts ("#{name}: #{@question.give_question}")
+  def ask_question name
+    puts "#{name}: #{@question.give_question}"
   end
   
   def ask_for_answer
@@ -32,7 +32,7 @@ class Game
 
   def ask_player_names
     1.upto(@total_players) { |count|
-      puts ("Enter P#{count} name:")
+      puts "Enter P#{count} name:"
       name = gets.chomp
       player = Player.new(name, INITIAL_PLAYER_LIFE)
       @players << player
@@ -40,13 +40,13 @@ class Game
   end
 
   def ask_total_players
-    puts ("How many are playing?")
+    puts "How many are playing?"
     @total_players = gets.chomp.to_i
     @total_players = 2 if @total_players < 2
   end
 
   def check_answer
-    @question.correct?(@answer)
+    @question.correct? @answer 
   end
 
   def play
@@ -69,7 +69,7 @@ class Game
     @round += 1
     say_round_start
     request_new_question
-    ask_question(@current_player.name)
+    ask_question @current_player.name 
     ask_for_answer
     process_answer    
     say_score
@@ -93,37 +93,37 @@ class Game
       unless player.alive?
         @losers << player
         @players.delete_at(index)
-        puts ("\n\n    (╯'□')╯︵ ┻━┻")
-        puts ("It's game over for #{player.name}. So sad.")
+        puts "\n\n    (╯'□')╯︵ ┻━┻"
+        puts "It's game over for #{player.name}. So sad."
       end
     end
   end
 
-  def request_score(player)
+  def request_score player
     "#{player.life}/#{INITIAL_PLAYER_LIFE}"
   end
 
   def say_correct
-    puts ("YES! You are correct.")
+    puts "YES! You are correct."
   end
 
   def say_game_over
-    puts ("----- GAME OVER -----")
-    puts ("Good bye!")
+    puts "----- GAME OVER -----"
+    puts "Good bye!"
   end
 
   def say_incorrect
-    puts ("Seriously? No!")
+    puts "Seriously? No!"
   end
 
   def say_introduction
-    puts ("~~~~~~~~~~~~~~~~~~~~~~")
-    puts (GAME_NAME)
-    puts ("~~~~~~~~~~~~~~~~~~~~~~")
-    puts (WELCOME_MESSAGE)
+    puts "~~~~~~~~~~~~~~~~~~~~~~"
+    puts GAME_NAME
+    puts "~~~~~~~~~~~~~~~~~~~~~~"
+    puts WELCOME_MESSAGE
   end
 
-  def say_roster(include_score = false)
+  def say_roster include_score = false
     message = ""
     @players.each_with_index do |player, index|
       end_of_list = (index + 1) >= @total_players
@@ -136,15 +136,15 @@ class Game
 
   def say_round_start
     if @round === 1
-      puts ("----- GAME START -----")
+      puts "----- GAME START -----"
     else
-      puts ("----- NEW TURN -----")
+      puts "----- NEW TURN -----"
     end
   end
 
   def say_score
     include_score = true
-    say_roster(include_score)
+    say_roster include_score
   end
 
   def say_winner
@@ -162,7 +162,7 @@ class Game
        |   |
       .'   '.
      _|_____|_")
-    puts ("#{winner.name} wins with a score of #{request_score(winner)}") if winner
+    puts "#{winner.name} wins with a score of #{request_score(winner)}" if winner
   end
 
   def to_s

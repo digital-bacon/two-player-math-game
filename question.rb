@@ -11,7 +11,7 @@ class Question
     "What does #{@number_1} plus #{@number_2} equal?"
   end
 
-  def correct?(answer)
+  def correct? answer
     answer === @answer;
   end
 
