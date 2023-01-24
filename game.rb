@@ -25,13 +25,14 @@ class Game
     total_players = @players.length
     @players.each_with_index do |player, current|
       message += "#{player.name}"
-      if current < total_players
+      if (current + 1) < total_players
         message += " vs "
       end
     end
     puts message
     
     self.new_round(0)
+    self.new_round(1)
   end
 
   private
@@ -84,8 +85,8 @@ class Game
     message = ""
     total_players = @players.length
     @players.each_with_index do |player, current|
-      message += "#{@player.name}: #{@player.say_score}"
-      if current < total_players
+      message += "#{player.name}: #{player.say_score}"
+      if (current + 1) < total_players
         message += " vs "
       end
     end
@@ -103,10 +104,11 @@ class Game
   # end
 
   def find_winner
-    score = @players[0].life
+    score = 0
     winner = nil
     @players.each do |player|
       if player.life > score
+        score = player.life
         winner = player
       end
     end
