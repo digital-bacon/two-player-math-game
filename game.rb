@@ -27,8 +27,9 @@ class Game
       puts ("YES! You are correct.")
     end
 
-    puts ("P1: #{player_1.say_life} vs P2: #{player_2.say_life}")
+    puts ("P1: #{player_1.say_score} vs P2: #{player_2.say_score}")
     puts ("----- NEW TURN -----")
+
   end
 
   def to_s

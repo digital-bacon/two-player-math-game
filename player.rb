@@ -7,7 +7,7 @@ class Player
     @life = initial_life
   end
   
-  def say_life
+  def say_score
     "#{@life}/#{@initial_life}"
   end
 
