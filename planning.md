@@ -62,18 +62,28 @@ What is the role for each class?
 
 Stores information on the current game state, and manages the game loop.
 
-- Properties: :players, :losers, :question, :answer
+- Properties: :players, :total_players, :losers, :round, :question, :answer
 - Initialized with: none
 - Methods:
-  - continue_play?
-  - correct?
-  - find_winner
-  - new_round
-  - new_question
+  - announce_players
+  - ask_question(name)
+  - ask_for_answer
+  - ask_player_names
+  - ask_total_players
+  - check_answer
+  - greet_players
+  - play
+  - play_round
+  - request_new_question
+  - process_answer
   - remove_losers
+  - request_score(player)
+  - say_correct
+  - say_game_over
+  - say_incorrect
+  - say_round_start
   - say_score
   - say_winner
-  - score(player)
   - to_s
 
 **Player**
