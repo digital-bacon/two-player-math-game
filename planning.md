@@ -60,23 +60,7 @@ What is the role for each class?
 
 **Game**
 
-Stores information on the current game state including references to player
-classes, and who the current player is. It contains methods to say a message
-when an answer is correct/incorrect. It also contains a method, new_round,
-which is called to create a question, prompt a player for a response, validate
-the response, manage player life if the response is incorrect, end the game
-if a player is out of lives, and say_correct, say_incorrect, or say_game_over
-as required. The method named to_s is used for troubleshooting and outputs a
-string to identify the class.
-
-- Properties: player_1, player_2, current_player
-- Initialized with: none
-- Methods: new_round, say_correct, say_incorrect, say_game_over, to_s
-
-**Player**
-
-Stores information on a player, and handles player life. The method named to_s
-is used for troubleshooting and outputs a string to identify the class.
+Stores information on the current game state, and manages the game loop.
 
 - Properties: :players, :losers, :question, :answer
 - Initialized with: none
@@ -92,8 +76,24 @@ is used for troubleshooting and outputs a string to identify the class.
   - score(player)
   - to_s
 
+**Player**
+
+Stores information on a player, and handles player life.
+
+- Properties: :name, :initial_life, :life
+- Initialized with: none
+- Methods:
+  - alive?
+  - lose_a_life
+  - to_s
+
 **Question**
 
-- Properties: :ask, :number_1, :number_2, :answer
+Creates and stores a random math question, and handles answer validation.
+
+- Properties: :number_1, :number_2, :answer
 - Initialized with: none
-- Public methods: ask, correct?, to_s
+- Methods:
+  - correct?,
+  - give_question,
+  - to_s
