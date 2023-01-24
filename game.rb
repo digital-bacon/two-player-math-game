@@ -1,4 +1,7 @@
 class Game
+
+  INITIAL_PLAYER_LIFE = 3
+
   def initialize
     puts ("TwO-O-Player Math Game")
     puts ("Challenge a friend to a math battle for the ages!")
@@ -9,8 +12,8 @@ class Game
     puts ("Enter P2 name:")
     player_2_name = gets.chomp
 
-    player_1 = Player.new(player_1_name, 3)
-    player_2 = Player.new(player_2_name, 3)
+    player_1 = Player.new(player_1_name, INITIAL_PLAYER_LIFE)
+    player_2 = Player.new(player_2_name, INITIAL_PLAYER_LIFE)
 
     puts ("The names have been locked!")
     puts ("#{player_1.name} vs #{player_2.name}")
