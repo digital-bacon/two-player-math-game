@@ -13,20 +13,18 @@ class Game
     
     puts ("How many are playing?")
     total_players = gets.chomp.to_i
-    if total_players < 2
-      total_players = 2
-    end
+    total_players = 2 if total_players < 2
     
     # Generate the players
     @players = []
     @losers = []
 
-    for count in 1..total_players
-        puts ("Enter P#{count} name:")
-        name = gets.chomp
-        player = Player.new(name, INITIAL_PLAYER_LIFE)
-        @players << player
-    end
+    1.upto(total_players) { |count|
+      puts ("Enter P#{count} name:")
+      name = gets.chomp
+      player = Player.new(name, INITIAL_PLAYER_LIFE)
+      @players << player
+    }
 
     puts ("Player names have been locked!")
 
@@ -34,9 +32,8 @@ class Game
     message = ""
     @players.each_with_index do |player, current|
       message += "#{player.name}"
-      if (current + 1) < total_players
-        message += " vs "
-      end
+      end_of_list = (current + 1) >= total_players
+      message += " vs " unless end_of_list
     end
     puts message
     
@@ -44,17 +41,15 @@ class Game
     @players.shuffle!
     play_game = true
     remaining_players = total_players
-    player_number = 0
+    first_player = 0
+    this_player = 0
     puts ("----- GAME START -----")
-    while play_game
-      @current_player = @players[player_number]
+    until remaining_players <= 1 do
+      this_player = first_player if remaining_players <= this_player
+      @current_player = @players[this_player]
       self.new_round
       remaining_players = @players.length
-      play_game = remaining_players >= 2 ? true : false
-      player_number += 1
-      if (remaining_players <= player_number)
-        player_number = 0
-      end
+      this_player += 1
     end
   end
 
@@ -65,7 +60,7 @@ class Game
     ask_question(@current_player.name)
 
     if correct?
-      puts ("YES! You are correct.")
+      puts ("YES! You are correct.") if correct?
     else
       @current_player.lose_a_life
       puts ("Seriously? No!")
@@ -109,7 +104,7 @@ class Game
 
   def remove_losers
     @players.each_with_index do |player, index|
-      if !player.alive?
+      unless player.alive?
         @losers << player
         @players.delete_at(index)
         puts ("It's game over for #{player.name}. So sad!")
@@ -122,32 +117,15 @@ class Game
     total_players = @players.length
     @players.each_with_index do |player, current|
       message += "#{player.name}: #{score(player)}"
-      if (current + 1) < total_players
-        message += " vs "
-      end
+      end_of_list = (current + 1) >= total_players
+      message += " vs " unless end_of_list
     end
     puts message
   end
-  
-  def find_winner
-    score = 0
-    winner = nil
-    @players.each do |player|
-      if player.life > score
-        score = player.life
-        winner = player
-      end
-    end
-    return winner
-  end
 
   def say_winner
-    winner = find_winner
-    if winner
-      puts ("#{winner.name} wins with a score of #{score(winner)}")
-    else
-      puts ("There was no winner")
-    end
+    winner = @players[0]
+    puts ("#{winner.name} wins with a score of #{score(winner)}") if winner
   end
 
   def to_s
