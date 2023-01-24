@@ -1,5 +1,5 @@
 class Game
-  attr_reader = :player_1, :player_2
+  attr_reader = :player_1, :player_2, :current_player, :question, :answer
 
   INITIAL_PLAYER_LIFE = 1
 
@@ -22,19 +22,31 @@ class Game
     self.new_round()
   end
 
+  private
+
+  def new_question
+    @question = Question.new
+  end
+
+  def ask_question(name)
+    puts ("#{name}: #{@question.ask}")
+    @answer = gets.chomp.to_i
+  end
+
+  def correct?
+    @question.correct?(@answer)
+  end
+
   def new_round
-    # Generate a new question, and ask the player
-    question = Question.new
-    puts ("Player 1: #{question.ask}")
-    @player_answer = gets.chomp.to_i
-    
-    # Check if the answer is correct
-    correct = question.correct?(@player_answer)
-    if !correct
-      @player_1.lose_a_life
-      puts ("Seriously? No!")
-    else
+    @current_player = @player_1
+    new_question
+    ask_question(@current_player.name)
+
+    if correct?
       puts ("YES! You are correct.")
+    else
+      @current_player.lose_a_life
+      puts ("Seriously? No!")
     end
 
     continue_playing = @player_1.alive? && @player_2.alive?
