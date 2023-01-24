@@ -18,7 +18,6 @@ class Game
     player_2 = Player.new(player_2_name, INITIAL_PLAYER_LIFE)
     @players << player_1 
     @players << player_2
-    @current_player = 0
 
     puts ("The names have been locked!")
     message = ""
@@ -31,14 +30,21 @@ class Game
     end
     puts message
     
-    self.new_round(0)
-    self.new_round(1)
+    play_round = true
+    player_number = 0
+    while play_round
+      @current_player = @players[player_number]
+      play_round = self.new_round
+      player_number += 1
+      if (total_players === player_number)
+        player_number = 0
+      end
+    end
   end
 
   private
 
-  def new_round(player_number)
-    @current_player = @players[player_number]
+  def new_round
     new_question
     ask_question(@current_player.name)
 
@@ -52,11 +58,14 @@ class Game
     if continue?
       say_score
       puts ("----- NEW TURN -----")
+      return true
     else
       say_winner
       puts ("----- GAME OVER -----")
       puts ("Good bye!")
     end
+
+    return false
   end 
 
   def new_question
@@ -92,17 +101,7 @@ class Game
     end
     puts message
   end
-
-  # def tied?
-  #   score = @players[0].life
-  #   @players.each do |player|
-  #     if player.life !== score
-  #       return false
-  #     end
-  #   end
-  #   return true
-  # end
-
+  
   def find_winner
     score = 0
     winner = nil
