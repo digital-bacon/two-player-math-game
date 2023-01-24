@@ -9,8 +9,8 @@ class Game
     puts ("Enter P2 name:")
     player_2_name = gets.chomp
 
-    player_1 = Player.new (player_1_name)
-    player_2 = Player.new (player_2_name)
+    player_1 = Player.new(player_1_name, 3)
+    player_2 = Player.new(player_2_name, 3)
 
     puts ("The names have been locked!")
     puts ("#{player_1.name} vs #{player_2.name}")
@@ -23,10 +23,12 @@ class Game
     if !correct
       player_1.lose_a_life
       puts ("Seriously? No!")
-      puts ("You now have #{player_1.life} life left")
     else
       puts ("YES! You are correct.")
     end
+
+    puts ("P1: #{player_1.say_life} vs P2: #{player_2.say_life}")
+    puts ("----- NEW TURN -----")
   end
 
   def to_s
