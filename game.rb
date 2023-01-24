@@ -93,7 +93,8 @@ class Game
       unless player.alive?
         @losers << player
         @players.delete_at(index)
-        puts ("It's game over for #{player.name}. So sad!")
+        puts ("\n\n    (╯'□')╯︵ ┻━┻")
+        puts ("It's game over for #{player.name}. So sad.")
       end
     end
   end
@@ -148,6 +149,19 @@ class Game
 
   def say_winner
     winner = @players[0]
+    puts (
+"                 
+        ___                    
+        | |                    
+   |-----+-----|
+   |    1ST    |
+   |   PRIZE   |
+   '-----------'
+    \\         /
+     '.    .'
+       |   |
+      .'   '.
+     _|_____|_")
     puts ("#{winner.name} wins with a score of #{request_score(winner)}") if winner
   end
 
