@@ -14,23 +14,13 @@ class Game
     ask_total_players
     ask_player_names
     puts ("Player names have been locked!")
-    announce_players
+    say_roster
     play
     say_winner
     say_game_over
   end
 
   private
-
-  def announce_players
-    message = ""
-    @players.each_with_index do |player, current|
-      message += "#{player.name}"
-      end_of_list = (current + 1) >= @total_players
-      message += " vs " unless end_of_list
-    end
-    puts message
-  end
 
   def ask_question(name)
     puts ("#{name}: #{@question.give_question}")
@@ -132,6 +122,17 @@ class Game
     puts ("Seriously? No!")
   end
 
+  def say_roster(include_score = false)
+    message = ""
+    @players.each_with_index do |player, index|
+      end_of_list = (index + 1) >= @total_players
+      message += "#{player.name}"
+      message += ": #{request_score(player)}" if include_score
+      message += " vs " unless end_of_list
+    end
+    puts message
+  end
+
   def say_round_start
     if @round === 1
       puts ("----- GAME START -----")
@@ -141,14 +142,8 @@ class Game
   end
 
   def say_score
-    message = ""
-    total_players = @players.length
-    @players.each_with_index do |player, current|
-      message += "#{player.name}: #{request_score(player)}"
-      end_of_list = (current + 1) >= total_players
-      message += " vs " unless end_of_list
-    end
-    puts message
+    include_score = true
+    say_roster(include_score)
   end
 
   def say_winner

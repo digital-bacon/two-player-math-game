@@ -65,7 +65,6 @@ Stores information on the current game state, and manages the game loop.
 - Properties: :players, :total_players, :losers, :round, :question, :answer
 - Initialized with: none
 - Methods:
-  - announce_players
   - ask_question(name)
   - ask_for_answer
   - ask_player_names
@@ -81,6 +80,7 @@ Stores information on the current game state, and manages the game loop.
   - say_correct
   - say_game_over
   - say_incorrect
+  - say_roster
   - say_round_start
   - say_score
   - say_winner
