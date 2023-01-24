@@ -10,7 +10,7 @@ class Game
     @losers = []
     @total_players = 0
     @round = 0
-    greet_players
+    say_introduction
     ask_total_players
     ask_player_names
     puts ("Player names have been locked!")
@@ -47,13 +47,6 @@ class Game
 
   def check_answer
     @question.correct?(@answer)
-  end
-
-  def greet_players
-    puts ("~~~~~~~~~~~~~~~~~~~~~~")
-    puts (GAME_NAME)
-    puts ("~~~~~~~~~~~~~~~~~~~~~~")
-    puts (WELCOME_MESSAGE)
   end
 
   def play
@@ -120,6 +113,13 @@ class Game
 
   def say_incorrect
     puts ("Seriously? No!")
+  end
+
+  def say_introduction
+    puts ("~~~~~~~~~~~~~~~~~~~~~~")
+    puts (GAME_NAME)
+    puts ("~~~~~~~~~~~~~~~~~~~~~~")
+    puts (WELCOME_MESSAGE)
   end
 
   def say_roster(include_score = false)
