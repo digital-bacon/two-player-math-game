@@ -1,5 +1,5 @@
 class Question
-  attr_reader :ask, :number_1, :number_2, :answer
+  attr_reader :number_1, :number_2, :answer
 
   def initialize    
     @number_1 = rand(1..20)
@@ -7,7 +7,7 @@ class Question
     @answer = @number_1 + @number_2
   end
   
-  def ask
+  def give_question
     "What does #{@number_1} plus #{@number_2} equal?"
   end
 

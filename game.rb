@@ -86,7 +86,7 @@ class Game
   end
 
   def ask_question(name)
-    puts ("#{name}: #{@question.ask}")
+    puts ("#{name}: #{@question.give_question}")
     @answer = gets.chomp.to_i
   end
 
