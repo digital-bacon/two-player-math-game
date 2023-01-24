@@ -76,6 +76,7 @@ class Game
       this_player = first_player if remaining_players <= this_player
       @current_player = @players[this_player]
       play_round
+      remove_losers
       remaining_players = @players.length
       this_player += 1
     end
@@ -89,7 +90,6 @@ class Game
     ask_for_answer
     process_answer    
     say_score
-    remove_losers
   end
 
   def request_new_question
